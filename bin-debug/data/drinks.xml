@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<recipes>
+	<recipe>
+		<name>Coffee</name>
+		<ingredients>
+			<ingredient units="3">Coffee</ingredient>
+			<ingredient units="1">Sugar</ingredient>
+			<ingredient units="1">Cream</ingredient>
+		</ingredients>
+	</recipe>
+	<recipe>
+		<name>Decaf Coffee</name>
+		<ingredients>
+			<ingredient units="3">Decaf Coffee</ingredient>
+			<ingredient units="1">Sugar</ingredient>
+			<ingredient units="1">Cream</ingredient>
+		</ingredients>
+	</recipe>
+	<recipe>
+		<name>Caffe Latte</name>
+		<ingredients>
+			<ingredient units="2">Espresso</ingredient>
+			<ingredient units="1">Steamed Milk</ingredient>
+		</ingredients>
+	</recipe>
+	<recipe>
+		<name>Caffe Americano</name>
+		<ingredients>
+			<ingredient units="3">Espresso</ingredient>
+		</ingredients>
+	</recipe>
+	<recipe>
+		<name>Caffe Mocha</name>
+		<ingredients>
+			<ingredient units="1">Espresso</ingredient>
+			<ingredient units="1">Cocoa</ingredient>
+			<ingredient units="1">Steamed Milk</ingredient>
+			<ingredient units="1">Whipped Cream</ingredient>
+		</ingredients>
+	</recipe>	
+	<recipe>
+		<name>Cappuccino</name>
+		<ingredients>
+			<ingredient units="2">Espresso</ingredient>
+			<ingredient units="1">Steamed Milk</ingredient>
+			<ingredient units="1">Foamed Milk</ingredient>
+		</ingredients>
+	</recipe>	
+</recipes>

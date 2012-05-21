@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="false">
+	<fx:Declarations>
+		<s:CurrencyFormatter id="currencyFormatter" useCurrencySymbol="true" currencySymbol="$" fractionalDigits="2" trailingZeros="true" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.models.vo.drink.DrinkVO;
+		]]>
+	</fx:Script>
+	<s:Label text="{(data as DrinkVO).recipeVO.name}" left="0" top="3" bottom="3"/>
+	<s:Label text="{currencyFormatter.format((data as DrinkVO).cost)}" right="10" top="3" bottom="3"/>
+</s:ItemRenderer>

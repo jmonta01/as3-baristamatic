@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 buttonMode="true"
+		 mouseDown="handleMouseDown()" mouseUp="handleMouseUp()" mouseOut="handleMouseUp()">
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.views.Assets;
+			
+			
+			[Bindable] private var baseFilters:Array = [Assets.buttonShadowBase];
+			[Bindable] private var downFilters:Array = [Assets.buttonShadowDown];
+			
+			private function handleMouseDown():void{
+				this.currentState = "down";
+			}
+			
+			private function handleMouseUp():void{
+				this.currentState = "base";				
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="base" />
+		<s:State name="down" />
+	</s:states>
+	<s:Rect id="btnBase" top="0" left="0" right="5" bottom="5" radiusX="10" radiusY="10" filters.base="{baseFilters}" filters.down="{downFilters}">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xca8341" ratio="0" />
+				<s:GradientEntry color="0xd37934" ratio=".5" />
+				<s:GradientEntry color="0xb45004" ratio="1" />
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90" weight="1" pixelHinting="true">
+				<s:GradientEntry color.base="0xCCCCCC" color.down="0x472e17" ratio="0" />
+				<s:GradientEntry color.base="0x472e17" color.down="0xCCCCCC" ratio="1" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Rect>
+	<s:Label text="Restock" color="0xFFFFFF" fontWeight="bold" left="8" top="10" right="12" bottom="12" />
+</s:Group>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" initialize="init()">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.events.drinkOrder.DrinkOrderEvent;
+			import com.montydigital.baristamatic.models.vo.drink.DrinkVO;
+			import com.montydigital.baristamatic.models.vo.recipe.RecipeVO;
+			
+			import mx.collections.ArrayCollection;
+			
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			
+			private var _drinksList:ArrayCollection;
+			[Bindable] 
+			public function get drinksList():ArrayCollection{return _drinksList; }
+			public function set drinksList(val:ArrayCollection):void{
+				_drinksList = val;
+				_drinksList.sort = sort;
+				_drinksList.refresh();
+			}
+			
+			private var sort:Sort;
+			
+			private function init():void{
+				var sortField:SortField = new SortField('name');
+				sort = new Sort();
+				sort.fields = [sortField];
+			}
+
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="10" />
+	</s:layout>
+	<s:DataGroup width="100%" dataProvider="{drinksList}" clipAndEnableScrolling="true" 
+				 itemRenderer="com.montydigital.baristamatic.views.recipeView.RecipeViewItemRenderer">
+		<s:layout>
+			<s:HorizontalLayout gap="20" />
+		</s:layout>
+	</s:DataGroup>
+</s:Group>

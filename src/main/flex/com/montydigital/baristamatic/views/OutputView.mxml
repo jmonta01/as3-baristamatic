@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:inventory="com.montydigital.baristamatic.models.vo.inventory.*"
+		 xmlns:inventoryView="com.montydigital.baristamatic.views.inventoryView.*"
+		 width="100%" height="100%" cornerRadius="15" backgroundAlpha=".3" borderAlpha=".5" borderColor="0xFFFFFF" >
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.events.inventory.InventoryChangeEvent;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CurrencyFormatter id="currencyFormatter" useCurrencySymbol="true" currencySymbol="$" fractionalDigits="2" trailingZeros="true" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.models.vo.drink.DrinkVO;
+			import com.montydigital.baristamatic.models.vo.inventory.InventoryVO;
+			
+			import mx.collections.ArrayCollection;
+			[Bindable] public var ordersList:ArrayCollection;
+			[Bindable] public var totalSales:Number;
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout gap="10" paddingBottom="15" paddingLeft="15" paddingRight="15" paddingTop="15" />
+	</s:layout>
+	<s:Label text="Order History" color="0xFFFFFF" fontWeight="bold" fontSize="18" />
+	<s:List width="100%" height="100%" dataProvider="{ordersList}" contentBackgroundAlpha="0" borderVisible="false"
+			itemRenderer="com.montydigital.baristamatic.views.outputView.OutputViewItemRenderer"/>
+	<s:Line width="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="0x333333" alpha=".5" />
+		</s:stroke>
+	</s:Line>
+	<s:Label text="Total Sales: {currencyFormatter.format(totalSales)}" fontWeight="bold" />
+</s:BorderContainer>

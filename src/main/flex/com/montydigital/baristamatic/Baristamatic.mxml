@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:views="com.montydigital.baristamatic.views.*"
+			   width="1000" height="600" initialize="initApp()" >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.commands.DrinkOrderCommand;
+			import com.montydigital.baristamatic.commands.InventoryChangeCommand;
+			import com.montydigital.baristamatic.commands.RecipeAvailabilityCommand;
+			import com.montydigital.baristamatic.commands.RecipeChangeCommand;
+			import com.montydigital.baristamatic.controllers.CentralController;
+			import com.montydigital.baristamatic.models.modelManagers.DrinkOrderManager;
+			import com.montydigital.baristamatic.models.modelManagers.InventoryManager;
+			import com.montydigital.baristamatic.models.modelManagers.RecipeManager;
+			import com.montydigital.baristamatic.events.drinkOrder.DrinkOrderEvent;
+			import com.montydigital.baristamatic.events.inventory.InventoryChangeEvent;
+			import com.montydigital.baristamatic.events.recipe.RecipeAvailabilityEvent;
+			import com.montydigital.baristamatic.events.recipe.RecipeChangeEvent;
+			import com.montydigital.baristamatic.initialization.InitializationOrchestrator;
+			import com.montydigital.baristamatic.initialization.initializers.*;
+			import com.montydigital.baristamatic.views.Assets;
+			
+			import mx.logging.Log;
+			import mx.logging.targets.TraceTarget;
+			
+			private var initalization:InitializationOrchestrator;
+			private var centralController:CentralController;
+			
+			[Bindable] private var drinkOrderManager:DrinkOrderManager;
+			[Bindable] private var inventoryManager:InventoryManager;
+			[Bindable] private var drinkManager:RecipeManager;
+			
+			private function initApp():void{
+				var target:TraceTarget = new TraceTarget();
+				target.level = 2;
+				Log.addTarget(target);
+				
+				inventoryManager = new InventoryManager();
+				drinkManager = new RecipeManager();
+				drinkOrderManager = new DrinkOrderManager();
+				
+				centralController = new CentralController();
+				centralController.addCommand(InventoryChangeEvent.CHANGE, new InventoryChangeCommand(inventoryManager));
+				centralController.addCommand(RecipeChangeEvent.CHANGE, new RecipeChangeCommand(drinkManager));
+				centralController.addCommand(DrinkOrderEvent.ORDER, new DrinkOrderCommand(drinkOrderManager, inventoryManager));
+				centralController.addCommand(RecipeAvailabilityEvent.CHECK, new RecipeAvailabilityCommand(inventoryManager, drinkManager));
+				
+				initalization = new InitializationOrchestrator();
+				initalization.addInitializer(new InventoryInitializer(inventoryManager, "data/inventory.xml"));
+				initalization.addInitializer(new RecipeInitializer(drinkManager, "data/recipes.xml"));
+				initalization.run(initComplete);
+			}
+			
+			private function initComplete():void{
+				new RecipeAvailabilityEvent().dispatch();
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:Image source="{Assets.Background}" alpha=".6" />
+	<s:VGroup paddingBottom="20" paddingLeft="20" paddingRight="20" paddingTop="20" gap="20">
+		<s:Label text="Barista-matic" color="0xFFFFFF" fontWeight="bold" fontSize="24" />
+		<views:RecipeView drinksList="{drinkManager.list}" />
+		<s:HGroup width="100%" height="350" gap="20">
+			<views:InventoryView inventoryList="{inventoryManager.list}" />
+			<views:OutputView ordersList="{drinkOrderManager.list}" totalSales="{drinkOrderManager.totalSales}" />
+		</s:HGroup>		
+	</s:VGroup>
+</s:Application>

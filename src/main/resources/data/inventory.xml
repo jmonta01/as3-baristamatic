@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ingredients>
+	<ingredient max="10" quantity="10" unit_cost="0.75">Coffee</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="0.75">Decaf Coffee</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="0.25">Sugar</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="0.25">Cream</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="0.35">Steamed Milk</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="0.35">Foamed Milk</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="1.10">Espresso</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="0.90">Cocoa</ingredient>
+	<ingredient max="10" quantity="10" unit_cost="1.00">Whipped Cream</ingredient>
+</ingredients>

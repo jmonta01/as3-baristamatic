@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="false"
+				width="125" height="150"
+				enabled="{(data as RecipeVO).available}" 
+				buttonMode="{(data as RecipeVO).available}"
+				click="handleOrderClick()" 
+				mouseDown="handleMouseDown()" mouseUp="handleMouseUp()" mouseOut="handleMouseUp()" >
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.events.drinkOrder.DrinkOrderEvent;
+			import com.montydigital.baristamatic.views.Assets;
+			import com.montydigital.baristamatic.models.vo.recipe.RecipeVO;
+			
+			import org.as3commons.lang.StringUtils;
+			
+			[Bindable] private var baseFilters:Array = [Assets.buttonShadowBase];
+			[Bindable] private var downFilters:Array = [Assets.buttonShadowDown];
+			
+			override public function set data(value:Object):void{
+				super.data = value; 
+			}
+			
+			private function handleOrderClick():void{
+				new DrinkOrderEvent(this.data as RecipeVO).dispatch();
+			}
+			
+			private function handleMouseDown():void{
+				this.currentState = "down";
+			}
+			
+			private function handleMouseUp():void{
+				this.currentState = "base";				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="base" />
+		<s:State name="down" />
+	</s:states>
+	<s:Rect id="btnBase" top="0" left="0" right="5" bottom="5" radiusX="15" radiusY="15" filters.base="{baseFilters}" filters.down="{downFilters}">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xca8341" ratio="0" />
+				<s:GradientEntry color="0xd37934" ratio=".5" />
+				<s:GradientEntry color="0xb45004" ratio="1" />
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90" weight="1" pixelHinting="true">
+				<s:GradientEntry color.base="0xCCCCCC" color.down="0x472e17" ratio="0" />
+				<s:GradientEntry color.base="0x472e17" color.down="0xCCCCCC" ratio="1" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Rect>
+	<s:VGroup gap="0" paddingBottom="10" verticalCenter="0" horizontalCenter="-2" horizontalAlign="center">
+		<s:Image source="{Assets.CoffeeCup}" />
+		<s:Label text="{StringUtils.titleize((data as RecipeVO).name)}" color="0xFFFFFF" fontWeight="bold" />
+	</s:VGroup>
+</s:ItemRenderer>

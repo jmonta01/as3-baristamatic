@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:inventoryView="com.montydigital.baristamatic.views.inventoryView.*"
+				autoDrawBackground="false" width="100%" >
+	<fx:Script>
+		<![CDATA[
+			import com.montydigital.baristamatic.views.Assets;
+			import com.montydigital.baristamatic.models.vo.inventory.InventoryVO;
+			
+			private function getQuanitityBarColor(percent:Number):uint{
+				if(percent > .5){
+					return 0x85ca41;
+				}else if(percent > .25 && percent <= .5){
+					return 0xecee4d;
+				}else{
+					return 0xee3430;	
+				}
+			}
+		]]>
+	</fx:Script>
+	<s:Group width="100%" height="100%">
+		<s:Rect id="track" left="0" top="0" right="3" bottom="3" radiusX="10" radiusY="10" filters="{[Assets.buttonShadowBase]}">
+			<s:fill>
+				<s:SolidColor color="0x999999" />
+			</s:fill>
+		</s:Rect>
+		<s:Group top="1" left="1" bottom="4" right="4">
+			<s:Rect id="quanitityBar" width="{(track.width-2)*(data as InventoryVO).quantity/(data as InventoryVO).maxQuantity}" height="100%" radiusX="10" radiusY="10">
+				<s:fill>
+					<s:SolidColor color="{getQuanitityBarColor((data as InventoryVO).quantity/(data as InventoryVO).maxQuantity)}" />
+				</s:fill>
+			</s:Rect>
+		</s:Group>
+	</s:Group>
+	<s:Label text="{(data as InventoryVO).name} {(data as InventoryVO).quantity}/{(data as InventoryVO).maxQuantity}" color="0x333333" fontWeight="bold" top="5" bottom="5" left="10"/>
+</s:ItemRenderer>
